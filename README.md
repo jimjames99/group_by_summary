@@ -1,4 +1,5 @@
 # GroupBySummary
+![Travis badge](https://travis-ci.org/jimjames99/group_by_summary.svg?branch=master)
 
 You run a chain of stores that carry different kinds of fruit. Which stores carry which fruit?
 The query for store name, fruit, and quantity in stock returns many rows for each store:
