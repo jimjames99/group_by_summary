@@ -46,7 +46,9 @@ Or install it yourself as:
 
 ## Usage
 
-Create a summary object by passing an array of arrays. Each containing 2 or 3 elements:
+Create a summary object by passing an array of arrays. The output of this arel is perfect:
+```StoreInventory.group(:name, :fruit).pluck(:name, :fruit, 'sum(quantity)')```
+Each array containing 2 or 3 elements:
 * entity name
 * attribute for column heading
 * value to be displayed in the cell (optional)
@@ -80,6 +82,7 @@ require 'terminal-table'
 table = Terminal::Table.new(rows: summary.rows)
 table.headings = summary.heading
 puts table
+=>
 +-----------+-------+--------+--------+--------+
 |           | apple | banana | orange | tomato |
 +-----------+-------+--------+--------+--------+
@@ -88,21 +91,15 @@ puts table
 | Northside |       |        |        | 55     |
 +-----------+-------+--------+--------+--------+
 ```
-Or output to console with tab separators so you can paste it into an Excel spreadsheet:
+Or output to console with tab separators so you can paste it into an Excel spreadsheet. If values are not present an x is printed. 
 ```
-
+puts summary.to_s(:tab)
+=>
+	apple	banana	orange	tomato
+Eastside	x	x
+Westside		x	x
+Northside				x
 ```
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/group_by_summary. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
 
 ## License
 

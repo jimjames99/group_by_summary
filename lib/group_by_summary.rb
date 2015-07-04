@@ -21,7 +21,7 @@ class GroupBySummary
   #
   def initialize(arr=[])
     @list_of_items = Array.new(arr).extend(ArrayNamedAccess)
-    @list_of_items.each{|a| a.extend(ArrayNamedAccess)}
+    @list_of_items.each { |a| a.extend(ArrayNamedAccess) }
   end
 
   # ['apple', 'banana', 'orange', 'tomato']
@@ -32,6 +32,10 @@ class GroupBySummary
   # ['Store', 'apple', 'banana', 'orange', 'tomato']
   def heading(entity_name=nil)
     [entity_name] + column_names
+  end
+
+  def heading_with_tabs(entity_name=nil)
+    heading(entity_name).join("\t")
   end
 
   def rows
@@ -50,8 +54,17 @@ class GroupBySummary
     rows
   end
 
+  # Ruby's join is recursive and we want to keep the top level arrays.
   def rows_with_tabs
-    rows.collect{|i| i.join("\t")}
+    rows.collect { |i| i.join("\t") }
+  end
+
+  def to_s(opt=nil)
+    if opt == :tab
+      [heading_with_tabs] + rows_with_tabs
+    else
+      [heading] + rows
+    end
   end
 
 end

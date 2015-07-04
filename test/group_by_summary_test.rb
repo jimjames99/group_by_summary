@@ -31,8 +31,8 @@ class GroupBySummaryTest < Minitest::Test
     rows_with_tabs = @summary.rows_with_tabs
     expected_rows_with_tabs =
         ["Eastside\t22\t44\t\t",
-        "Westside\t\t33\t44\t",
-        "Northside\t\t\t\t55"]
+         "Westside\t\t33\t44\t",
+         "Northside\t\t\t\t55"]
     assert_equal expected_rows_with_tabs, rows_with_tabs, rows_with_tabs
   end
 
@@ -40,6 +40,12 @@ class GroupBySummaryTest < Minitest::Test
     heading = @summary.heading
     expected_heading = [nil, 'apple', 'banana', 'orange', 'tomato']
     assert_equal expected_heading, heading, heading
+  end
+
+  def test_it_builds_heading_with_tabs
+    heading_with_tabs = @summary.heading_with_tabs
+    expected_heading_with_tabs = "\tapple\tbanana\torange\ttomato"
+    assert_equal expected_heading_with_tabs, heading_with_tabs, heading_with_tabs
   end
 
   def test_it_builds_heading_with_name
@@ -52,6 +58,32 @@ class GroupBySummaryTest < Minitest::Test
     assert_equal [], GroupBySummary.new([]).rows
     assert_equal [nil], GroupBySummary.new([]).heading
     assert_equal ['Store'], GroupBySummary.new([]).heading('Store')
+  end
+
+  def test_it_generates_to_s
+    test_array = [
+        ['Eastside', 'banana'],
+        ['Eastside', 'apple'],
+        ['Westside', 'banana'],
+        ['Westside', 'orange'],
+        ['Northside', 'tomato'],
+    ]
+    summary = GroupBySummary.new(test_array)
+    output = [[nil, "apple", "banana", "orange", "tomato"], ["Eastside", "x", "x", nil, nil], ["Westside", nil, "x", "x", nil], ["Northside", nil, nil, nil, "x"]]
+    assert_equal output, summary.to_s
+  end
+
+  def test_it_generates_to_s_with_tabs
+    test_array = [
+        ['Eastside', 'banana'],
+        ['Eastside', 'apple'],
+        ['Westside', 'banana'],
+        ['Westside', 'orange'],
+        ['Northside', 'tomato'],
+    ]
+    summary = GroupBySummary.new(test_array)
+    output = ["\tapple\tbanana\torange\ttomato", "Eastside\tx\tx\t\t", "Westside\t\tx\tx\t", "Northside\t\t\t\tx"]
+    assert_equal output, summary.to_s(:tab)
   end
 
 end
