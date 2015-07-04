@@ -27,6 +27,15 @@ class GroupBySummaryTest < Minitest::Test
     assert_equal expected_rows, rows, rows
   end
 
+  def test_it_creates_rows_with_tabs
+    rows_with_tabs = @summary.rows_with_tabs
+    expected_rows_with_tabs =
+        ["Eastside\t22\t44\t\t",
+        "Westside\t\t33\t44\t",
+        "Northside\t\t\t\t55"]
+    assert_equal expected_rows_with_tabs, rows_with_tabs, rows_with_tabs
+  end
+
   def test_it_builds_heading
     heading = @summary.heading
     expected_heading = [nil, 'apple', 'banana', 'orange', 'tomato']

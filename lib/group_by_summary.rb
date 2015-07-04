@@ -50,4 +50,8 @@ class GroupBySummary
     rows
   end
 
+  def rows_with_tabs
+    rows.collect{|i| i.join("\t")}
+  end
+
 end
