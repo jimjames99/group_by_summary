@@ -91,7 +91,7 @@ puts table
 | Northside |       |        |        | 55     |
 +-----------+-------+--------+--------+--------+
 ```
-Or output to console with tab separators so you can paste it into an Excel spreadsheet. If values are not present an x is printed. 
+Or output to console with tab separators so you can paste into an Excel spreadsheet. If values are not present an x is printed. 
 ```
 puts summary.to_s(:tab)
 =>
