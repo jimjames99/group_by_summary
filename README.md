@@ -5,16 +5,18 @@ The query for store name, fruit, and quantity in stock returns many rows for eac
 
 ```StoreInventory.group(:name, :fruit).pluck(:name, :fruit, 'sum(quantity)')```
 
-```[
+```
+[
 ['Eastside', 'banana', 44],
 ['Eastside', 'apple', 22],
 ['Westside', 'banana', 33],
 ['Westside', 'orange', 44],
-['Northside', 'tomato', 55]
+['Northside', 'tomato', 55],
+with many rows for each store
 ]
 ```
 
-You want a pretty summary table like this:
+You want to consolidate those rows into pretty summary table with only one row per store like this (output by (TerminalTable)[https://github.com/tj/terminal-table]):
 
 ```
 |           | apple | banana | orange | tomato |
@@ -42,7 +44,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+require 'group_by_summary'
+raw_rows = 
+[
+['Eastside', 'banana', 44],
+['Eastside', 'apple', 22],
+['Westside', 'banana', 33],
+['Westside', 'orange', 44],
+['Northside', 'tomato', 55]
+]
+
+summary = GroupBySummary.new(raw_rows)
+
+```
 
 ## Development
 
