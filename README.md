@@ -11,7 +11,8 @@ The query for store name, fruit, and quantity in stock returns many rows for eac
 ['Westside', 'banana', 33],
 ['Westside', 'orange', 44],
 ['Northside', 'tomato', 55]
-]```
+]
+```
 
 You want a pretty summary table like this:
 
